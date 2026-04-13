@@ -3,6 +3,7 @@ import { ShoppingCart, Heart, Search, User, Menu, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { useState } from "react";
+import WhiffleLogo from "@/components/WhiffleLogo";
 
 const Navbar = () => {
   const { totalItems } = useCart();
@@ -19,14 +20,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-cream border-b border-border shadow-sm">
+    <nav className="sticky top-0 z-50 bg-cream border-b-2 border-primary/30 shadow-sm">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="font-heading text-2xl font-bold text-chocolate flex items-center gap-2">
-          🧁 <span>Whiffle</span>
+        <Link to="/" className="text-chocolate hover:opacity-80 transition-opacity">
+          <WhiffleLogo className="h-10 w-auto" />
         </Link>
 
-        {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map(link => (
             <Link
@@ -39,7 +38,6 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Icons */}
         <div className="flex items-center gap-4">
           <button onClick={() => setSearchOpen(!searchOpen)} className="text-chocolate hover:text-primary transition-colors">
             <Search size={20} />
@@ -69,7 +67,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Search bar */}
       {searchOpen && (
         <div className="border-t border-border px-4 py-3 bg-card">
           <div className="container mx-auto">
@@ -83,16 +80,10 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden border-t border-border bg-cream px-4 py-4 space-y-3">
           {navLinks.map(link => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setMobileOpen(false)}
-              className="block font-body text-foreground hover:text-primary font-medium py-2"
-            >
+            <Link key={link.to} to={link.to} onClick={() => setMobileOpen(false)} className="block font-body text-foreground hover:text-primary font-medium py-2">
               {link.label}
             </Link>
           ))}

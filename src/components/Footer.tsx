@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import WhiffleLogo from "@/components/WhiffleLogo";
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-heading text-xl font-bold mb-4">🧁 Whiffle</h3>
+            <WhiffleLogo className="h-10 w-auto text-cream mb-4" />
             <p className="font-body text-sm opacity-80">
               Your guided baking companion. Quality bakeware, recipes, and everything you need to bake smarter.
             </p>
@@ -31,7 +32,7 @@ const Footer = () => {
           </div>
           <div>
             <h4 className="font-heading font-semibold mb-3">Newsletter</h4>
-            <p className="font-body text-sm opacity-80 mb-3">Get the latest recipes & special offers!</p>
+            <p className="font-body text-sm opacity-80 mb-3">Get the latest recipes and special offers!</p>
             <div className="flex gap-2">
               <input
                 type="email"
@@ -45,7 +46,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-chocolate-light mt-8 pt-6 text-center font-body text-sm opacity-60">
-          © 2026 Whiffle. All rights reserved. Whiffle Away! 🧁
+          &copy; 2026 Whiffle. All rights reserved.
         </div>
       </div>
     </footer>

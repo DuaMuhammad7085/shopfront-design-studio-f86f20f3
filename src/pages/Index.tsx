@@ -1,22 +1,22 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Truck, Shield, BookOpen } from "lucide-react";
+import { ArrowRight, Truck, Shield, BookOpen, CakeSlice, Wheat, Paintbrush, HandMetal, Package, Star } from "lucide-react";
 import { products } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import heroBg from "@/assets/hero-bakery.jpg";
 import starterKitsBg from "@/assets/starter-kits-banner.jpg";
 import featuredDealBg from "@/assets/featured-deal.jpg";
 
-const categories = [
-  { name: "Bakeware", emoji: "🍰", slug: "Bakeware" },
-  { name: "Ingredients", emoji: "🧂", slug: "Ingredients" },
-  { name: "Decorating Tools", emoji: "🎨", slug: "Decorating Tools" },
-  { name: "Accessories", emoji: "🧤", slug: "Accessories" },
-  { name: "Bundles", emoji: "📦", slug: "Bundles" },
-  { name: "Starter Kits", emoji: "⭐", slug: "Starter Kits" },
+const categoryIcons = [
+  { name: "Bakeware", icon: CakeSlice, slug: "Bakeware" },
+  { name: "Ingredients", icon: Wheat, slug: "Ingredients" },
+  { name: "Decorating Tools", icon: Paintbrush, slug: "Decorating Tools" },
+  { name: "Accessories", icon: HandMetal, slug: "Accessories" },
+  { name: "Bundles", icon: Package, slug: "Bundles" },
+  { name: "Starter Kits", icon: Star, slug: "Starter Kits" },
 ];
 
 const Index = () => {
-  const featured = products.slice(0, 8);
+  const featured = products.filter(p => p.reviews > 150).slice(0, 8);
 
   return (
     <div className="min-h-screen">
@@ -47,14 +47,16 @@ const Index = () => {
       <section className="container mx-auto px-4 py-16">
         <h2 className="font-heading text-3xl font-bold text-foreground mb-8 text-center">Shop by Category</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {categories.map(cat => (
+          {categoryIcons.map(cat => (
             <Link
               key={cat.name}
               to={`/shop?category=${cat.slug}`}
               className="bg-card rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 border border-border group hover:-translate-y-1"
             >
-              <div className="text-4xl mb-3">{cat.emoji}</div>
-              <h3 className="font-heading font-semibold text-foreground group-hover:text-primary transition-colors">{cat.name}</h3>
+              <div className="bg-soft-pink w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3">
+                <cat.icon size={24} className="text-primary" />
+              </div>
+              <h3 className="font-heading font-semibold text-foreground group-hover:text-primary transition-colors text-sm">{cat.name}</h3>
             </Link>
           ))}
         </div>
@@ -129,7 +131,7 @@ const Index = () => {
       <section className="bg-secondary py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-heading text-3xl font-bold text-foreground mb-2 italic">Join Our Mailing List</h2>
-          <p className="font-body text-muted-foreground mb-6">Get the latest recipes & special offers!</p>
+          <p className="font-body text-muted-foreground mb-6">Get the latest recipes and special offers!</p>
           <div className="flex max-w-md mx-auto gap-3">
             <input
               type="email"
