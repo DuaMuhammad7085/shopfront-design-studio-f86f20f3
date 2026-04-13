@@ -1,20 +1,18 @@
 import { useState, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { products, categories } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import shopBanner from "@/assets/shop-banner.jpg";
 import featuredDealBg from "@/assets/featured-deal.jpg";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ChevronDown, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 8;
 
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get("category") || "All";
 
   const [selectedCategory, setSelectedCategory] = useState(categoryParam);
-  const [priceFilter, setPriceFilter] = useState(false);
   const [ratingFilter, setRatingFilter] = useState(false);
   const [onSaleFilter, setOnSaleFilter] = useState(false);
   const [inStockFilter, setInStockFilter] = useState(false);
@@ -54,10 +52,26 @@ const Shop = () => {
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
+  const getPageNumbers = () => {
+    const pages: (number | "ellipsis")[] = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1, 2, 3);
+      if (currentPage > 3 && currentPage < totalPages - 1) {
+        pages.push("ellipsis", currentPage);
+      } else {
+        pages.push("ellipsis");
+      }
+      pages.push(totalPages);
+    }
+    return pages;
+  };
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Banner */}
-      <section className="relative h-[250px] overflow-hidden">
+      <section className="relative h-[220px] overflow-hidden">
         <img src={shopBanner} alt="Bakeware Essentials" className="w-full h-full object-cover" width={1920} height={512} />
         <div className="absolute inset-0 bg-gradient-to-r from-chocolate/70 to-chocolate/30 flex items-center justify-center text-center">
           <div>
@@ -78,7 +92,7 @@ const Shop = () => {
               <button
                 key={cat}
                 onClick={() => handleCategoryChange(cat)}
-                className={`font-body whitespace-nowrap py-2 px-1 border-b-2 transition-colors ${
+                className={`font-body whitespace-nowrap py-2 px-1 border-b-2 transition-colors text-sm ${
                   selectedCategory === cat
                     ? "border-primary text-primary font-semibold"
                     : "border-transparent text-muted-foreground hover:text-foreground"
@@ -91,23 +105,23 @@ const Shop = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex gap-8">
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex gap-6">
           {/* Sidebar */}
-          <aside className="hidden lg:block w-56 shrink-0">
+          <aside className="hidden lg:block w-48 shrink-0">
             {/* Categories list */}
             <div className="bg-card rounded-xl border border-border p-4 mb-4">
-              <h3 className="font-heading font-bold text-foreground mb-3 bg-primary text-primary-foreground px-3 py-2 rounded-lg text-sm">
+              <h3 className="font-heading font-bold text-primary-foreground bg-primary px-3 py-2 rounded-lg text-sm mb-3">
                 Categories
               </h3>
-              <div className="space-y-2 mt-3">
+              <div className="space-y-1">
                 {["All Products", "Bakeware", "Ingredients", "Decorating Tools", "Accessories"].map(cat => (
                   <button
                     key={cat}
                     onClick={() => handleCategoryChange(cat === "All Products" ? "All" : cat)}
-                    className={`block w-full text-left font-body text-sm py-1 px-2 rounded transition-colors ${
+                    className={`block w-full text-left font-body text-sm py-1.5 px-2 rounded transition-colors ${
                       (cat === "All Products" ? "All" : cat) === selectedCategory
-                        ? "text-primary font-semibold"
+                        ? "text-primary font-semibold underline"
                         : "text-foreground hover:text-primary"
                     }`}
                   >
@@ -126,15 +140,16 @@ const Shop = () => {
                 Filter By <ChevronDown size={16} className={`transition-transform ${filterOpen ? "rotate-180" : ""}`} />
               </button>
               {filterOpen && (
-                <div className="mt-3 space-y-3">
+                <div className="mt-3 space-y-2.5">
                   {[
-                    { label: "Price", checked: priceFilter, onChange: () => setPriceFilter(!priceFilter) },
-                    { label: "Rating (4.5+)", checked: ratingFilter, onChange: () => { setRatingFilter(!ratingFilter); setCurrentPage(1); } },
+                    { label: "Price", checked: false, onChange: () => {} },
+                    { label: "Brand", checked: false, onChange: () => {} },
+                    { label: "Rating", checked: ratingFilter, onChange: () => { setRatingFilter(!ratingFilter); setCurrentPage(1); } },
                     { label: "On Sale", checked: onSaleFilter, onChange: () => { setOnSaleFilter(!onSaleFilter); setCurrentPage(1); } },
                     { label: "In Stock", checked: inStockFilter, onChange: () => { setInStockFilter(!inStockFilter); setCurrentPage(1); } },
                   ].map(f => (
                     <label key={f.label} className="flex items-center gap-2 font-body text-sm text-foreground cursor-pointer">
-                      <input type="checkbox" checked={f.checked} onChange={f.onChange} className="rounded border-border" />
+                      <input type="checkbox" checked={f.checked} onChange={f.onChange} className="rounded border-border accent-primary" />
                       {f.label}
                     </label>
                   ))}
@@ -161,7 +176,7 @@ const Shop = () => {
           {/* Products grid */}
           <div className="flex-1">
             <p className="font-body text-muted-foreground text-sm mb-4">
-              Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of {filtered.length} Products
+              Showing {Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, filtered.length)}&mdash;{Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of {filtered.length} Products
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {paginated.map(p => (
@@ -171,33 +186,39 @@ const Shop = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-8">
+              <div className="flex items-center justify-center gap-1 mt-8">
                 <button
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="px-3 py-2 rounded-lg border border-border font-body text-sm disabled:opacity-50 hover:bg-secondary transition-colors"
+                  className="px-3 py-2 rounded-lg border border-border font-body text-sm disabled:opacity-40 hover:bg-secondary transition-colors"
                 >
-                  <ChevronLeft size={16} />
+                  Prev
                 </button>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`px-3 py-2 rounded-lg font-body text-sm transition-colors ${
-                      currentPage === page
-                        ? "bg-primary text-primary-foreground"
-                        : "border border-border hover:bg-secondary"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ))}
+                {getPageNumbers().map((page, i) =>
+                  page === "ellipsis" ? (
+                    <span key={`e-${i}`} className="px-2 py-2 font-body text-sm text-muted-foreground">
+                      <MoreHorizontal size={16} />
+                    </span>
+                  ) : (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`px-3 py-2 rounded-lg font-body text-sm transition-colors ${
+                        currentPage === page
+                          ? "bg-primary text-primary-foreground font-semibold"
+                          : "border border-border hover:bg-secondary"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  )
+                )}
                 <button
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-3 py-2 rounded-lg border border-border font-body text-sm disabled:opacity-50 hover:bg-secondary transition-colors"
+                  className="px-3 py-2 rounded-lg border border-border font-body text-sm disabled:opacity-40 hover:bg-secondary transition-colors"
                 >
-                  <ChevronRight size={16} />
+                  Next
                 </button>
               </div>
             )}
@@ -206,7 +227,7 @@ const Shop = () => {
       </div>
 
       {/* Featured Deal */}
-      <section className="relative h-[280px] overflow-hidden">
+      <section className="relative h-[260px] overflow-hidden">
         <img src={featuredDealBg} alt="Featured Deal" className="w-full h-full object-cover" loading="lazy" width={1920} height={512} />
         <div className="absolute inset-0 bg-chocolate/60 flex items-center justify-center text-center">
           <div>
@@ -223,7 +244,7 @@ const Shop = () => {
       <section className="bg-secondary py-12">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-heading text-2xl font-bold text-foreground mb-2 italic">Join Our Mailing List</h2>
-          <p className="font-body text-muted-foreground mb-4">Get the latest recipes & special offers!</p>
+          <p className="font-body text-muted-foreground mb-4">Get the latest recipes and special offers!</p>
           <div className="flex max-w-md mx-auto gap-3">
             <input
               type="email"
