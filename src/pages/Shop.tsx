@@ -1,25 +1,39 @@
+// ==================== SHOP PAGE ====================
+// Main product listing with sidebar filters, category tabs,
+// sort, pagination, and newsletter section
+// ===================================================
+
 import { useState, useMemo } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { products, categories } from "@/data/products";
+import { products, categories, brands } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import shopBanner from "@/assets/shop-banner.jpg";
 import featuredDealBg from "@/assets/featured-deal.jpg";
-import { ChevronDown, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, MoreHorizontal, Mail } from "lucide-react";
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 12;
 
+// ---- Shop Page Component ----
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get("category") || "All";
 
+  // ---- Filter & Sort State ----
   const [selectedCategory, setSelectedCategory] = useState(categoryParam);
   const [ratingFilter, setRatingFilter] = useState(false);
   const [onSaleFilter, setOnSaleFilter] = useState(false);
   const [inStockFilter, setInStockFilter] = useState(false);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState("price-low");
   const [currentPage, setCurrentPage] = useState(1);
   const [filterOpen, setFilterOpen] = useState(true);
+  const [priceOpen, setPriceOpen] = useState(true);
+  const [brandOpen, setBrandOpen] = useState(true);
+  // ---- End Filter & Sort State ----
 
+  // ---- Category Change Handler ----
   const handleCategoryChange = (cat: string) => {
     setSelectedCategory(cat);
     setCurrentPage(1);
@@ -30,16 +44,44 @@ const Shop = () => {
     }
     setSearchParams(searchParams);
   };
+  // ---- End Category Change Handler ----
 
+  // ---- Brand Toggle Handler ----
+  const toggleBrand = (brand: string) => {
+    setSelectedBrands(prev =>
+      prev.includes(brand) ? prev.filter(b => b !== brand) : [...prev, brand]
+    );
+    setCurrentPage(1);
+  };
+  // ---- End Brand Toggle Handler ----
+
+  // ---- Filter & Sort Logic ----
   const filtered = useMemo(() => {
     let result = [...products];
+
+    // Category filter
     if (selectedCategory !== "All") {
       result = result.filter(p => p.category === selectedCategory);
     }
+    // Sale filter
     if (onSaleFilter) result = result.filter(p => p.originalPrice);
+    // Stock filter
     if (inStockFilter) result = result.filter(p => p.inStock);
+    // Rating filter
     if (ratingFilter) result = result.filter(p => p.rating >= 4.5);
 
+    // Price range filter
+    const min = parseFloat(minPrice);
+    const max = parseFloat(maxPrice);
+    if (!isNaN(min)) result = result.filter(p => p.price >= min);
+    if (!isNaN(max)) result = result.filter(p => p.price <= max);
+
+    // Brand filter
+    if (selectedBrands.length > 0) {
+      result = result.filter(p => selectedBrands.includes(p.brand));
+    }
+
+    // Sort
     switch (sortBy) {
       case "price-low": result.sort((a, b) => a.price - b.price); break;
       case "price-high": result.sort((a, b) => b.price - a.price); break;
@@ -47,8 +89,10 @@ const Shop = () => {
       case "popular": result.sort((a, b) => b.reviews - a.reviews); break;
     }
     return result;
-  }, [selectedCategory, sortBy, onSaleFilter, inStockFilter, ratingFilter]);
+  }, [selectedCategory, sortBy, onSaleFilter, inStockFilter, ratingFilter, minPrice, maxPrice, selectedBrands]);
+  // ---- End Filter & Sort Logic ----
 
+  // ---- Pagination ----
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
@@ -67,10 +111,11 @@ const Shop = () => {
     }
     return pages;
   };
+  // ---- End Pagination ----
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Banner */}
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
+      {/* ---- Shop Banner ---- */}
       <section className="relative h-[220px] overflow-hidden">
         <img src={shopBanner} alt="Bakeware Essentials" className="w-full h-full object-cover" width={1920} height={512} />
         <div className="absolute inset-0 bg-gradient-to-r from-chocolate/70 to-chocolate/30 flex items-center justify-center text-center">
@@ -83,11 +128,12 @@ const Shop = () => {
           </div>
         </div>
       </section>
+      {/* ---- End Shop Banner ---- */}
 
-      {/* Category tabs */}
+      {/* ---- Category Tabs ---- */}
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4">
-          <div className="flex overflow-x-auto gap-6 py-3">
+          <div className="flex overflow-x-auto gap-6 py-3 scrollbar-hide">
             {categories.map(cat => (
               <button
                 key={cat}
@@ -104,18 +150,19 @@ const Shop = () => {
           </div>
         </div>
       </div>
+      {/* ---- End Category Tabs ---- */}
 
       <div className="container mx-auto px-4 py-6">
         <div className="flex gap-6">
-          {/* Sidebar */}
-          <aside className="hidden lg:block w-48 shrink-0">
-            {/* Categories list */}
-            <div className="bg-card rounded-xl border border-border p-4 mb-4">
+          {/* ---- Sidebar Filters ---- */}
+          <aside className="hidden lg:block w-52 shrink-0 space-y-4">
+            {/* Categories sidebar list */}
+            <div className="bg-card rounded-xl border border-border p-4">
               <h3 className="font-heading font-bold text-primary-foreground bg-primary px-3 py-2 rounded-lg text-sm mb-3">
                 Categories
               </h3>
               <div className="space-y-1">
-                {["All Products", "Bakeware", "Ingredients", "Decorating Tools", "Accessories"].map(cat => (
+                {["All Products", "Bakeware", "Ingredients", "Decorating Tools", "Accessories", "Bundles", "Starter Kits"].map(cat => (
                   <button
                     key={cat}
                     onClick={() => handleCategoryChange(cat === "All Products" ? "All" : cat)}
@@ -130,9 +177,66 @@ const Shop = () => {
                 ))}
               </div>
             </div>
+            {/* End categories sidebar */}
 
-            {/* Filters */}
-            <div className="bg-card rounded-xl border border-border p-4 mb-4">
+            {/* ---- Price Filter ---- */}
+            <div className="bg-card rounded-xl border border-border p-4">
+              <button
+                onClick={() => setPriceOpen(!priceOpen)}
+                className="flex items-center justify-between w-full font-heading font-bold text-foreground text-sm"
+              >
+                Price Range <ChevronDown size={16} className={`transition-transform ${priceOpen ? "rotate-180" : ""}`} />
+              </button>
+              {priceOpen && (
+                <div className="mt-3 flex gap-2">
+                  <input
+                    type="number"
+                    placeholder="Min"
+                    value={minPrice}
+                    onChange={e => { setMinPrice(e.target.value); setCurrentPage(1); }}
+                    className="w-full px-2 py-1.5 rounded-lg border border-border bg-background font-body text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                  <span className="font-body text-muted-foreground self-center">-</span>
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    value={maxPrice}
+                    onChange={e => { setMaxPrice(e.target.value); setCurrentPage(1); }}
+                    className="w-full px-2 py-1.5 rounded-lg border border-border bg-background font-body text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              )}
+            </div>
+            {/* ---- End Price Filter ---- */}
+
+            {/* ---- Brand Filter ---- */}
+            <div className="bg-card rounded-xl border border-border p-4">
+              <button
+                onClick={() => setBrandOpen(!brandOpen)}
+                className="flex items-center justify-between w-full font-heading font-bold text-foreground text-sm"
+              >
+                Brand <ChevronDown size={16} className={`transition-transform ${brandOpen ? "rotate-180" : ""}`} />
+              </button>
+              {brandOpen && (
+                <div className="mt-3 space-y-2">
+                  {brands.map(brand => (
+                    <label key={brand} className="flex items-center gap-2 font-body text-sm text-foreground cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedBrands.includes(brand)}
+                        onChange={() => toggleBrand(brand)}
+                        className="rounded border-border accent-primary"
+                      />
+                      {brand}
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+            {/* ---- End Brand Filter ---- */}
+
+            {/* ---- Other Filters ---- */}
+            <div className="bg-card rounded-xl border border-border p-4">
               <button
                 onClick={() => setFilterOpen(!filterOpen)}
                 className="flex items-center justify-between w-full font-heading font-bold text-foreground text-sm"
@@ -142,9 +246,7 @@ const Shop = () => {
               {filterOpen && (
                 <div className="mt-3 space-y-2.5">
                   {[
-                    { label: "Price", checked: false, onChange: () => {} },
-                    { label: "Brand", checked: false, onChange: () => {} },
-                    { label: "Rating", checked: ratingFilter, onChange: () => { setRatingFilter(!ratingFilter); setCurrentPage(1); } },
+                    { label: "Top Rated (4.5+)", checked: ratingFilter, onChange: () => { setRatingFilter(!ratingFilter); setCurrentPage(1); } },
                     { label: "On Sale", checked: onSaleFilter, onChange: () => { setOnSaleFilter(!onSaleFilter); setCurrentPage(1); } },
                     { label: "In Stock", checked: inStockFilter, onChange: () => { setInStockFilter(!inStockFilter); setCurrentPage(1); } },
                   ].map(f => (
@@ -156,8 +258,9 @@ const Shop = () => {
                 </div>
               )}
             </div>
+            {/* ---- End Other Filters ---- */}
 
-            {/* Sort */}
+            {/* ---- Sort By ---- */}
             <div className="bg-card rounded-xl border border-border p-4">
               <h3 className="font-heading font-bold text-foreground text-sm mb-3">Sort By</h3>
               <select
@@ -171,20 +274,35 @@ const Shop = () => {
                 <option value="popular">Popular</option>
               </select>
             </div>
+            {/* ---- End Sort By ---- */}
           </aside>
+          {/* ---- End Sidebar Filters ---- */}
 
-          {/* Products grid */}
+          {/* ---- Products Grid ---- */}
           <div className="flex-1">
             <p className="font-body text-muted-foreground text-sm mb-4">
               Showing {Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, filtered.length)}&mdash;{Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of {filtered.length} Products
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {paginated.map(p => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
 
-            {/* Pagination */}
+            {filtered.length === 0 ? (
+              <div className="text-center py-16">
+                <p className="font-heading text-lg text-muted-foreground">No products match your filters.</p>
+                <button
+                  onClick={() => { setSelectedBrands([]); setMinPrice(""); setMaxPrice(""); setRatingFilter(false); setOnSaleFilter(false); setInStockFilter(false); }}
+                  className="mt-4 text-primary hover:underline font-body"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {paginated.map(p => (
+                  <ProductCard key={p.id} product={p} />
+                ))}
+              </div>
+            )}
+
+            {/* ---- Pagination Controls ---- */}
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-1 mt-8">
                 <button
@@ -222,11 +340,13 @@ const Shop = () => {
                 </button>
               </div>
             )}
+            {/* ---- End Pagination Controls ---- */}
           </div>
+          {/* ---- End Products Grid ---- */}
         </div>
       </div>
 
-      {/* Featured Deal */}
+      {/* ---- Featured Deal Banner ---- */}
       <section className="relative h-[260px] overflow-hidden">
         <img src={featuredDealBg} alt="Featured Deal" className="w-full h-full object-cover" loading="lazy" width={1920} height={512} />
         <div className="absolute inset-0 bg-chocolate/60 flex items-center justify-center text-center">
@@ -239,26 +359,34 @@ const Shop = () => {
           </div>
         </div>
       </section>
+      {/* ---- End Featured Deal Banner ---- */}
 
-      {/* Newsletter */}
-      <section className="bg-secondary py-12">
+      {/* ---- Newsletter Section ---- */}
+      <section className="bg-gradient-to-r from-chocolate to-chocolate-light py-14">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-2xl font-bold text-foreground mb-2 italic">Join Our Mailing List</h2>
-          <p className="font-body text-muted-foreground mb-4">Get the latest recipes and special offers!</p>
-          <div className="flex max-w-md mx-auto gap-3">
+          <div className="inline-flex items-center gap-2 bg-cream/10 px-4 py-2 rounded-full mb-4">
+            <Mail size={16} className="text-cream" />
+            <span className="font-heading text-sm font-semibold text-cream">Stay Updated</span>
+          </div>
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-cream mb-2 italic">Join Our Mailing List</h2>
+          <p className="font-body text-cream/70 mb-6">Get the latest recipes and special offers!</p>
+          <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-3">
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-xl border border-border bg-background font-body focus:outline-none focus:ring-2 focus:ring-primary"
+              className="flex-1 px-4 py-3 rounded-xl border border-cream/20 bg-cream/10 text-cream placeholder:text-cream/50 font-body focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <button className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
+            <button className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
               Subscribe
             </button>
           </div>
         </div>
       </section>
+      {/* ---- End Newsletter Section ---- */}
     </div>
   );
 };
+// ---- End Shop Page Component ----
 
 export default Shop;
+// ==================== END SHOP PAGE ====================

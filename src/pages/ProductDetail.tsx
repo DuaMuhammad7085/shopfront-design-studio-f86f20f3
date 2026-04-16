@@ -1,3 +1,7 @@
+// ==================== PRODUCT DETAIL PAGE ====================
+// Shows full product info, image, add to cart, tabs, related products
+// =============================================================
+
 import { useParams, Link } from "react-router-dom";
 import { products } from "@/data/products";
 import { useCart } from "@/context/CartContext";
@@ -7,6 +11,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import ProductCard from "@/components/ProductCard";
 
+// ---- ProductDetail Page Component ----
 const ProductDetail = () => {
   const { id } = useParams();
   const product = products.find(p => p.id === id);
@@ -15,6 +20,7 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
 
+  // ---- Not Found State ----
   if (!product) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
@@ -23,13 +29,14 @@ const ProductDetail = () => {
       </div>
     );
   }
+  // ---- End Not Found State ----
 
   const wishlisted = isInWishlist(product.id);
   const related = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
 
   return (
-    <div className="min-h-screen">
-      {/* Breadcrumb */}
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
+      {/* ---- Breadcrumb ---- */}
       <div className="container mx-auto px-4 py-4">
         <div className="font-body text-sm text-muted-foreground flex items-center gap-2">
           <Link to="/" className="hover:text-primary">Home</Link>
@@ -39,17 +46,21 @@ const ProductDetail = () => {
           <span className="text-foreground">{product.name}</span>
         </div>
       </div>
+      {/* ---- End Breadcrumb ---- */}
 
       <div className="container mx-auto px-4 pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Image */}
-          <div className="bg-card rounded-xl overflow-hidden border border-border">
+          {/* ---- Product Image ---- */}
+          <div className="bg-card rounded-xl overflow-hidden border border-border shadow-sm">
             <img src={product.image} alt={product.name} className="w-full aspect-square object-cover" width={512} height={512} />
           </div>
+          {/* ---- End Product Image ---- */}
 
-          {/* Info */}
+          {/* ---- Product Info ---- */}
           <div>
+            <p className="font-body text-sm text-muted-foreground mb-1">{product.brand}</p>
             <h1 className="font-heading text-3xl font-bold text-foreground mb-2">{product.name}</h1>
+            {/* Rating */}
             <div className="flex items-center gap-2 mb-4">
               <div className="flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
@@ -59,6 +70,7 @@ const ProductDetail = () => {
               <span className="font-body text-sm text-muted-foreground">({product.reviews} reviews)</span>
             </div>
 
+            {/* Price */}
             <div className="flex items-center gap-3 mb-6">
               <span className="font-heading text-3xl font-bold text-primary">${product.price.toFixed(2)}</span>
               {product.originalPrice && (
@@ -68,6 +80,7 @@ const ProductDetail = () => {
 
             <p className="font-body text-muted-foreground mb-6">{product.description}</p>
 
+            {/* Difficulty badge */}
             <div className="flex items-center gap-3 mb-4">
               <span className="font-body text-sm text-foreground font-medium">Difficulty:</span>
               <span className={`px-3 py-1 rounded-full text-xs font-heading font-semibold ${
@@ -79,7 +92,7 @@ const ProductDetail = () => {
               </span>
             </div>
 
-            {/* Quantity */}
+            {/* ---- Quantity Selector ---- */}
             <div className="flex items-center gap-4 mb-6">
               <span className="font-body text-sm font-medium">Quantity:</span>
               <div className="flex items-center border border-border rounded-lg">
@@ -92,8 +105,9 @@ const ProductDetail = () => {
                 </button>
               </div>
             </div>
+            {/* ---- End Quantity Selector ---- */}
 
-            {/* Buttons */}
+            {/* ---- Action Buttons ---- */}
             <div className="flex gap-3">
               <button
                 onClick={() => {
@@ -121,10 +135,12 @@ const ProductDetail = () => {
                 <Heart size={18} fill={wishlisted ? "currentColor" : "none"} />
               </button>
             </div>
+            {/* ---- End Action Buttons ---- */}
           </div>
+          {/* ---- End Product Info ---- */}
         </div>
 
-        {/* Tabs */}
+        {/* ---- Product Tabs (Description / Reviews / Usage) ---- */}
         <div className="mt-12">
           <div className="flex border-b border-border gap-6">
             {["description", "reviews", "usage"].map(tab => (
@@ -165,14 +181,15 @@ const ProductDetail = () => {
               <div className="font-body text-muted-foreground space-y-3">
                 <p>1. Preheat your oven to the recommended temperature.</p>
                 <p>2. Prepare the product according to your recipe.</p>
-                <p>3. Use as directed — refer to beginner tips included in the box.</p>
+                <p>3. Use as directed - refer to beginner tips included in the box.</p>
                 <p>4. Clean after use with warm soapy water or place in dishwasher.</p>
               </div>
             )}
           </div>
         </div>
+        {/* ---- End Product Tabs ---- */}
 
-        {/* Related Products */}
+        {/* ---- Related Products ---- */}
         {related.length > 0 && (
           <div className="mt-12">
             <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Related Products</h2>
@@ -181,9 +198,12 @@ const ProductDetail = () => {
             </div>
           </div>
         )}
+        {/* ---- End Related Products ---- */}
       </div>
     </div>
   );
 };
+// ---- End ProductDetail Page Component ----
 
 export default ProductDetail;
+// ==================== END PRODUCT DETAIL PAGE ====================
