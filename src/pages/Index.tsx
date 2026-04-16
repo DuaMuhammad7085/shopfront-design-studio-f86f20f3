@@ -1,26 +1,32 @@
+// ==================== HOME PAGE ====================
+// Landing page with hero, categories, featured products,
+// banners, trust badges, and newsletter
+// ===================================================
+
 import { Link } from "react-router-dom";
-import { ArrowRight, Truck, Shield, BookOpen, CakeSlice, Wheat, Paintbrush, HandMetal, Package, Star } from "lucide-react";
+import { ArrowRight, Truck, Shield, BookOpen, CakeSlice, Wheat, Paintbrush, Package, Mail } from "lucide-react";
 import { products } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import heroBg from "@/assets/hero-bakery.jpg";
 import starterKitsBg from "@/assets/starter-kits-banner.jpg";
 import featuredDealBg from "@/assets/featured-deal.jpg";
 
+// ---- Category Icons Data ----
 const categoryIcons = [
   { name: "Bakeware", icon: CakeSlice, slug: "Bakeware" },
   { name: "Ingredients", icon: Wheat, slug: "Ingredients" },
-  { name: "Decorating Tools", icon: Paintbrush, slug: "Decorating Tools" },
-  { name: "Accessories", icon: HandMetal, slug: "Accessories" },
+  { name: "Decorating", icon: Paintbrush, slug: "Decorating Tools" },
   { name: "Bundles", icon: Package, slug: "Bundles" },
-  { name: "Starter Kits", icon: Star, slug: "Starter Kits" },
 ];
+// ---- End Category Icons Data ----
 
+// ---- Index Page Component ----
 const Index = () => {
   const featured = products.filter(p => p.reviews > 150).slice(0, 8);
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
+      {/* ---- Hero Section ---- */}
       <section className="relative h-[500px] overflow-hidden">
         <img src={heroBg} alt="Fresh baked goods" className="w-full h-full object-cover" width={1920} height={640} />
         <div className="absolute inset-0 bg-gradient-to-r from-chocolate/80 to-chocolate/30 flex items-center">
@@ -42,28 +48,30 @@ const Index = () => {
           </div>
         </div>
       </section>
+      {/* ---- End Hero Section ---- */}
 
-      {/* Categories */}
-      <section className="container mx-auto px-4 py-16">
-        <h2 className="font-heading text-3xl font-bold text-foreground mb-8 text-center">Shop by Category</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {/* ---- Shop by Category (Compact) ---- */}
+      <section className="container mx-auto px-4 py-12">
+        <h2 className="font-heading text-2xl font-bold text-foreground mb-6 text-center">Shop by Category</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
           {categoryIcons.map(cat => (
             <Link
               key={cat.name}
               to={`/shop?category=${cat.slug}`}
-              className="bg-card rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 border border-border group hover:-translate-y-1"
+              className="bg-card rounded-xl p-5 text-center hover:shadow-lg transition-all duration-300 border border-border group hover:-translate-y-1"
             >
-              <div className="bg-soft-pink w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3">
-                <cat.icon size={24} className="text-primary" />
+              <div className="bg-soft-pink w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                <cat.icon size={22} className="text-primary" />
               </div>
               <h3 className="font-heading font-semibold text-foreground group-hover:text-primary transition-colors text-sm">{cat.name}</h3>
             </Link>
           ))}
         </div>
       </section>
+      {/* ---- End Shop by Category ---- */}
 
-      {/* Featured Products */}
-      <section className="bg-secondary/50 py-16">
+      {/* ---- Featured Products ---- */}
+      <section className="bg-gradient-to-b from-secondary/50 to-background py-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-heading text-3xl font-bold text-foreground">Featured Products</h2>
@@ -78,8 +86,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+      {/* ---- End Featured Products ---- */}
 
-      {/* Starter Kits Banner */}
+      {/* ---- Starter Kits Banner ---- */}
       <section className="relative h-[350px] overflow-hidden">
         <img src={starterKitsBg} alt="Starter Kits" className="w-full h-full object-cover" loading="lazy" width={1920} height={512} />
         <div className="absolute inset-0 bg-gradient-to-r from-chocolate/70 to-transparent flex items-center">
@@ -92,8 +101,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+      {/* ---- End Starter Kits Banner ---- */}
 
-      {/* Why Choose Us */}
+      {/* ---- Why Choose Us ---- */}
       <section className="container mx-auto px-4 py-16">
         <h2 className="font-heading text-3xl font-bold text-foreground mb-8 text-center">Why Choose Whiffle?</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -112,8 +122,9 @@ const Index = () => {
           ))}
         </div>
       </section>
+      {/* ---- End Why Choose Us ---- */}
 
-      {/* Featured Deal Banner */}
+      {/* ---- Featured Deal Banner ---- */}
       <section className="relative h-[300px] overflow-hidden">
         <img src={featuredDealBg} alt="Featured Deal" className="w-full h-full object-cover" loading="lazy" width={1920} height={512} />
         <div className="absolute inset-0 bg-chocolate/60 flex items-center justify-center text-center">
@@ -126,26 +137,34 @@ const Index = () => {
           </div>
         </div>
       </section>
+      {/* ---- End Featured Deal Banner ---- */}
 
-      {/* Newsletter */}
-      <section className="bg-secondary py-16">
+      {/* ---- Newsletter Section ---- */}
+      <section className="bg-gradient-to-r from-chocolate to-chocolate-light py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-3xl font-bold text-foreground mb-2 italic">Join Our Mailing List</h2>
-          <p className="font-body text-muted-foreground mb-6">Get the latest recipes and special offers!</p>
-          <div className="flex max-w-md mx-auto gap-3">
+          <div className="inline-flex items-center gap-2 bg-cream/10 px-4 py-2 rounded-full mb-4">
+            <Mail size={16} className="text-cream" />
+            <span className="font-heading text-sm font-semibold text-cream">Stay Updated</span>
+          </div>
+          <h2 className="font-heading text-3xl font-bold text-cream mb-2 italic">Join Our Mailing List</h2>
+          <p className="font-body text-cream/70 mb-6">Get the latest recipes and special offers!</p>
+          <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-3">
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-xl border border-border bg-background font-body focus:outline-none focus:ring-2 focus:ring-primary"
+              className="flex-1 px-4 py-3 rounded-xl border border-cream/20 bg-cream/10 text-cream placeholder:text-cream/50 font-body focus:outline-none focus:ring-2 focus:ring-primary"
             />
-            <button className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
+            <button className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
               Subscribe
             </button>
           </div>
         </div>
       </section>
+      {/* ---- End Newsletter Section ---- */}
     </div>
   );
 };
+// ---- End Index Page Component ----
 
 export default Index;
+// ==================== END HOME PAGE ====================
