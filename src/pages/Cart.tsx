@@ -11,15 +11,32 @@ const Cart = () => {
   const { items, updateQuantity, removeFromCart, totalPrice } = useCart();
 
   // ---- Empty Cart State ----
+  // Previously a lone grey bag icon felt cold. We now use a warm card with a
+  // soft-pink accent halo, friendlier copy, and two CTAs (shop + recipes) so
+  // the user always has somewhere inviting to go next.
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-16 text-center min-h-[60vh] flex flex-col items-center justify-center">
-        <ShoppingBag size={64} className="mx-auto text-muted-foreground mb-4" />
-        <h1 className="font-heading text-2xl font-bold text-foreground mb-2">Your Cart is Empty</h1>
-        <p className="font-body text-muted-foreground mb-6">Looks like you haven't added anything yet!</p>
-        <Link to="/shop" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
-          Continue Shopping
-        </Link>
+      <div className="container mx-auto px-4 py-16 min-h-[70vh] flex items-center justify-center">
+        <div className="bg-card rounded-3xl border border-border p-10 md:p-14 text-center max-w-lg shadow-sm animate-fade-up">
+          <div className="relative w-20 h-20 mx-auto mb-6">
+            <div className="absolute inset-0 bg-soft-pink/40 rounded-full animate-pulse" />
+            <div className="relative w-20 h-20 bg-soft-pink rounded-full flex items-center justify-center">
+              <ShoppingBag size={36} className="text-primary" />
+            </div>
+          </div>
+          <h1 className="font-heading text-3xl font-bold text-foreground mb-2 italic">Your cart is empty</h1>
+          <p className="font-body text-muted-foreground mb-7 max-w-sm mx-auto">
+            Looks like nothing's in here yet. Pop in some bakeware or grab a starter kit — your next bake is one click away.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link to="/shop" className="bg-primary text-primary-foreground px-7 py-3 rounded-xl font-heading font-semibold hover:opacity-90 hover:scale-105 transition-all shadow-md">
+              Continue Shopping
+            </Link>
+            <Link to="/blog" className="bg-secondary text-foreground border border-border px-7 py-3 rounded-xl font-heading font-semibold hover:shadow-md transition-all">
+              Browse Recipes
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }
