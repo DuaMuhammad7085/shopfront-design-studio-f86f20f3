@@ -3,21 +3,27 @@
 // ===================================================
 
 import { Link } from "react-router-dom";
-import { Heart, Users, Award, Leaf, BookOpen, Shield } from "lucide-react";
-import heroBg from "@/assets/hero-bakery.jpg";
+import { Heart, Users, Award, Leaf, BookOpen, Shield, Sparkles } from "lucide-react";
+import heroBg from "@/assets/hero-bakery-warm.jpg";
 import featuredDealBg from "@/assets/featured-deal.jpg";
 import starterKitsBg from "@/assets/starter-kits-banner.jpg";
 
 // ---- About Page Component ----
 const About = () => (
   <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
-    {/* ---- Hero Banner ---- */}
-    <section className="relative h-[300px] overflow-hidden">
-      <img src={heroBg} alt="About Whiffle" className="w-full h-full object-cover" width={1920} height={512} />
-      <div className="absolute inset-0 bg-chocolate/70 flex items-center justify-center text-center">
-        <div>
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-cream italic mb-2">About Whiffle</h1>
-          <p className="font-body text-cream/80 text-lg max-w-xl mx-auto">Making baking joyful, simple, and rewarding for everyone.</p>
+    {/* ---- Hero Banner ----
+        Taller banner with the warm bakery photo + soft pink badge to set a
+        human, story-driven tone for the page. */}
+    <section className="relative h-[380px] overflow-hidden">
+      <img src={heroBg} alt="About Whiffle" className="w-full h-full object-cover scale-105 animate-scale-in" width={1920} height={1080} />
+      <div className="absolute inset-0 bg-gradient-to-b from-chocolate/40 via-chocolate/65 to-chocolate/85 flex items-end">
+        <div className="container mx-auto px-4 pb-10 text-center animate-fade-up">
+          <div className="inline-flex items-center gap-2 bg-cream/15 backdrop-blur-sm border border-cream/20 px-4 py-1.5 rounded-full mb-4">
+            <Sparkles size={14} className="text-cream" />
+            <span className="font-heading text-xs font-semibold text-cream tracking-wide uppercase">Our Story</span>
+          </div>
+          <h1 className="font-heading text-4xl md:text-6xl font-bold text-cream italic mb-3 drop-shadow">About Whiffle</h1>
+          <p className="font-body text-cream/85 text-lg max-w-xl mx-auto">Making baking joyful, simple, and rewarding for everyone.</p>
         </div>
       </div>
     </section>
