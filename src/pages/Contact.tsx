@@ -22,16 +22,12 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
       {/* ---- Hero Banner ---- */}
-      <section className="relative h-[280px] overflow-hidden">
-        <img src={featuredDealBg} alt="Contact Whiffle" className="w-full h-full object-cover scale-105 animate-scale-in" width={1920} height={512} />
-        <div className="absolute inset-0 bg-gradient-to-b from-chocolate/40 via-chocolate/65 to-chocolate/85 flex items-end">
-          <div className="container mx-auto px-4 pb-8 text-center animate-fade-up">
-            <div className="inline-flex items-center gap-2 bg-cream/15 backdrop-blur-sm border border-cream/20 px-4 py-1.5 rounded-full mb-3">
-              <Send size={14} className="text-cream" />
-              <span className="font-heading text-xs font-semibold text-cream tracking-wide uppercase">We'd love to chat</span>
-            </div>
-            <h1 className="font-heading text-4xl md:text-5xl font-bold text-cream italic mb-2 drop-shadow">Get in Touch</h1>
-            <p className="font-body text-cream/85">Real bakers, real replies — usually within 24 hours.</p>
+      <section className="relative h-[220px] overflow-hidden">
+        <img src={featuredDealBg} alt="Contact Whiffle" className="w-full h-full object-cover" width={1920} height={512} />
+        <div className="absolute inset-0 bg-chocolate/70 flex items-center justify-center text-center">
+          <div>
+            <h1 className="font-heading text-4xl font-bold text-cream italic mb-2">Get in Touch</h1>
+            <p className="font-body text-cream/80">We'd love to hear from you!</p>
           </div>
         </div>
       </section>

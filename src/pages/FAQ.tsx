@@ -3,8 +3,7 @@
 // ==============================================
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ChevronDown, HelpCircle, MessageCircle } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 
 // ---- FAQ Data ----
 const faqs = [
@@ -27,56 +26,29 @@ const FAQ = () => {
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
       <div className="container mx-auto px-4 py-16 max-w-2xl">
         {/* ---- Page Header ---- */}
-        <div className="text-center mb-10 animate-fade-up">
+        <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-soft-pink/40 px-4 py-2 rounded-full mb-4">
-            <HelpCircle size={16} className="text-primary" />
-            <span className="font-heading text-xs font-semibold text-primary tracking-wide uppercase">Help Center</span>
+            <HelpCircle size={18} className="text-primary" />
+            <span className="font-heading text-sm font-semibold text-primary">Help Center</span>
           </div>
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-3 italic">Frequently Asked Questions</h1>
-          <p className="font-body text-muted-foreground max-w-md mx-auto">Quick answers to the things bakers ask us most. Can't find yours? <Link to="/contact" className="text-primary hover:underline">Drop us a line</Link>.</p>
+          <h1 className="font-heading text-4xl font-bold text-foreground mb-2">Frequently Asked Questions</h1>
+          <p className="font-body text-muted-foreground">Quick answers to common questions about Whiffle.</p>
         </div>
         {/* ---- End Page Header ---- */}
 
         {/* ---- FAQ Accordion ---- */}
-        <div className="space-y-3 stagger">
+        <div className="space-y-3">
           {faqs.map((faq, i) => (
-            <div key={i} style={{ ['--i' as any]: i }} className={`bg-card rounded-2xl border overflow-hidden shadow-sm transition-all ${open === i ? "border-primary/40 shadow-md" : "border-border"}`}>
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between p-5 font-heading font-semibold text-foreground text-left hover:bg-secondary/40 transition-colors"
-                aria-expanded={open === i}
-              >
-                <span className="flex items-center gap-3">
-                  <span className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${open === i ? "bg-primary text-primary-foreground" : "bg-soft-pink text-primary"}`}>
-                    <span className="font-heading text-xs font-bold">{i + 1}</span>
-                  </span>
-                  {faq.q}
-                </span>
-                <ChevronDown size={18} className={`transition-transform shrink-0 ml-4 ${open === i ? "rotate-180 text-primary" : ""}`} />
+            <div key={i} className="bg-card rounded-xl border border-border overflow-hidden shadow-sm">
+              <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between p-5 font-heading font-semibold text-foreground text-left">
+                {faq.q}
+                <ChevronDown size={18} className={`transition-transform shrink-0 ml-4 ${open === i ? "rotate-180" : ""}`} />
               </button>
-              {/* Answer panel: animated reveal via grid-rows trick keeps height auto without JS measure */}
-              <div className={`grid transition-all duration-300 ${open === i ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                <div className="overflow-hidden">
-                  <div className="px-5 pb-5 pl-16 font-body text-muted-foreground text-sm leading-relaxed">{faq.a}</div>
-                </div>
-              </div>
+              {open === i && <div className="px-5 pb-5 font-body text-muted-foreground text-sm leading-relaxed">{faq.a}</div>}
             </div>
           ))}
         </div>
         {/* ---- End FAQ Accordion ---- */}
-
-        {/* ---- Still Need Help CTA ---- */}
-        <div className="mt-10 bg-gradient-to-r from-soft-pink/40 to-secondary rounded-2xl border border-border p-6 text-center">
-          <div className="bg-primary w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-            <MessageCircle size={20} className="text-primary-foreground" />
-          </div>
-          <h3 className="font-heading font-bold text-foreground mb-1">Still have a question?</h3>
-          <p className="font-body text-sm text-muted-foreground mb-4">We usually reply within 24 hours.</p>
-          <Link to="/contact" className="inline-block bg-primary text-primary-foreground px-6 py-2.5 rounded-xl font-heading font-semibold hover:opacity-90 hover:scale-105 transition-all shadow-md">
-            Contact Support
-          </Link>
-        </div>
-        {/* ---- End Still Need Help CTA ---- */}
       </div>
     </div>
   );

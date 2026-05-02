@@ -17,10 +17,9 @@ import { ArrowRight, Truck, Shield, BookOpen, CakeSlice, Wheat, Paintbrush, Pack
 import { useTranslation } from "react-i18next";
 import { products } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
-import heroBg from "@/assets/hero-bakery-warm.jpg";
+import heroBg from "@/assets/hero-bakery.jpg";
 import starterKitsBg from "@/assets/starter-kits-banner.jpg";
 import featuredDealBg from "@/assets/featured-deal.jpg";
-import newsletterBg from "@/assets/newsletter-bg.jpg";
 
 // ---- Category Icons Data ----
 // Translation keys are resolved inside the component so language changes re-render.
@@ -42,32 +41,22 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* ---- Hero Section ---- */}
-      {/* Hero is above-the-fold so the image is eagerly loaded (no loading="lazy").
-          New image is a real bakery scene (hands kneading dough) for warmth and a
-          human touch, replacing the previous more generic shot. We add a soft pink
-          accent badge and an italic display word so the hero feels less AI-flat. */}
-      <section className="relative h-[560px] overflow-hidden">
-        <img src={heroBg} alt="Hands kneading fresh bread dough in a warm bakery" className="w-full h-full object-cover scale-105 animate-scale-in" width={1920} height={1080} />
-        {/* Stronger gradient on the left for legibility, fading to transparent on the right
-            so the bakery photo remains visible — gives the hero personality. */}
-        <div className="absolute inset-0 bg-gradient-to-r from-chocolate/90 via-chocolate/60 to-chocolate/10 flex items-center">
+      {/* Hero is above-the-fold so the image is eagerly loaded (no loading="lazy"). */}
+      <section className="relative h-[500px] overflow-hidden">
+        <img src={heroBg} alt="Fresh baked goods" className="w-full h-full object-cover scale-105 animate-scale-in" width={1920} height={640} />
+        <div className="absolute inset-0 bg-gradient-to-r from-chocolate/80 to-chocolate/30 flex items-center">
           <div className="container mx-auto px-4 animate-fade-up">
-            {/* Small badge above the headline humanizes the brand */}
-            <div className="inline-flex items-center gap-2 bg-cream/15 backdrop-blur-sm border border-cream/20 px-4 py-1.5 rounded-full mb-5">
-              <span className="w-2 h-2 rounded-full bg-soft-pink animate-pulse" />
-              <span className="font-heading text-xs font-semibold text-cream tracking-wide uppercase">Made with love · Since 2024</span>
-            </div>
-            <h1 className="font-heading text-5xl md:text-7xl font-bold text-cream mb-5 leading-[1.05] whitespace-pre-line drop-shadow-lg">
+            <h1 className="font-heading text-4xl md:text-6xl font-bold text-cream mb-4 whitespace-pre-line">
               {t("hero.title")}
             </h1>
-            <p className="font-body text-cream/90 text-lg md:text-xl mb-8 max-w-lg leading-relaxed">
+            <p className="font-body text-cream/80 text-lg mb-6 max-w-md">
               {t("hero.subtitle")}
             </p>
-            <div className="flex flex-wrap gap-3">
-              <Link to="/shop" className="bg-primary text-primary-foreground px-7 py-3.5 rounded-xl font-heading font-semibold hover:opacity-90 hover:scale-105 transition-all shadow-lg flex items-center gap-2">
-                {t("common.shopNow")} <ArrowRight size={18} />
+            <div className="flex gap-3">
+              <Link to="/shop" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 hover:scale-105 transition-all">
+                {t("common.shopNow")}
               </Link>
-              <Link to="/blog" className="bg-cream/95 text-chocolate px-7 py-3.5 rounded-xl font-heading font-semibold hover:bg-cream hover:scale-105 transition-all shadow-lg">
+              <Link to="/blog" className="bg-cream text-chocolate px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 hover:scale-105 transition-all">
                 {t("common.exploreRecipes")}
               </Link>
             </div>
@@ -169,35 +158,24 @@ const Index = () => {
       </section>
       {/* ---- End Featured Deal Banner ---- */}
 
-      {/* ---- Newsletter Section ----
-          Replaces the flat brown panel with a warm photographic background plus
-          a chocolate overlay so the bakery photo still feels present. The form
-          is anchored in a translucent "card" for stronger focal point. The
-          input + button are stacked on mobile so the Subscribe button is always
-          fully visible (fixes the previously reported overflow). */}
-      <section className="relative py-20 overflow-hidden">
-        <img src={newsletterBg} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1920} height={768} />
-        <div className="absolute inset-0 bg-gradient-to-br from-chocolate/95 via-chocolate/85 to-chocolate-light/80" />
-        <div className="relative container mx-auto px-4">
-          <div className="max-w-xl mx-auto bg-cream/8 backdrop-blur-md border border-cream/15 rounded-3xl p-8 sm:p-10 text-center shadow-2xl">
-            <div className="inline-flex items-center gap-2 bg-soft-pink/30 border border-soft-pink/40 px-4 py-1.5 rounded-full mb-5">
-              <Mail size={14} className="text-cream" />
-              <span className="font-heading text-xs font-semibold text-cream tracking-wide uppercase">{t("newsletter.badge")}</span>
-            </div>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-cream mb-3 italic leading-tight">{t("newsletter.title")}</h2>
-            <p className="font-body text-cream/80 mb-7 max-w-sm mx-auto">{t("newsletter.subtitle")}</p>
-            {/* Stack on mobile, side-by-side from sm+. min-w-0 prevents flex overflow. */}
-            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder={t("newsletter.placeholder")}
-                className="flex-1 min-w-0 px-4 py-3 rounded-xl border border-cream/25 bg-cream/15 text-cream placeholder:text-cream/60 font-body focus:outline-none focus:ring-2 focus:ring-soft-pink"
-              />
-              <button type="submit" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 hover:scale-105 transition-all whitespace-nowrap shadow-lg">
-                {t("common.subscribe")}
-              </button>
-            </form>
-            <p className="font-body text-cream/60 text-xs mt-4">No spam, just sweet recipes. Unsubscribe anytime.</p>
+      {/* ---- Newsletter Section ---- */}
+      <section className="bg-gradient-to-r from-chocolate to-chocolate-light py-16">
+        <div className="container mx-auto px-4 text-center">
+          <div className="inline-flex items-center gap-2 bg-cream/10 px-4 py-2 rounded-full mb-4">
+            <Mail size={16} className="text-cream" />
+            <span className="font-heading text-sm font-semibold text-cream">{t("newsletter.badge")}</span>
+          </div>
+          <h2 className="font-heading text-3xl font-bold text-cream mb-2 italic">{t("newsletter.title")}</h2>
+          <p className="font-body text-cream/70 mb-6">{t("newsletter.subtitle")}</p>
+          <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-3">
+            <input
+              type="email"
+              placeholder={t("newsletter.placeholder")}
+              className="flex-1 px-4 py-3 rounded-xl border border-cream/20 bg-cream/10 text-cream placeholder:text-cream/50 font-body focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            <button className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 hover:scale-105 transition-all whitespace-nowrap">
+              {t("common.subscribe")}
+            </button>
           </div>
         </div>
       </section>
