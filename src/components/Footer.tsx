@@ -15,8 +15,9 @@ const Footer = () => {
           <div>
             <WhiffleLogo className="h-10 w-auto text-cream mb-4" />
             <p className="font-body text-sm opacity-80">
-              Your guided baking companion. Quality bakeware, recipes, and everything you need to bake smarter.
+              A little bakery shop run by people who genuinely love a warm kitchen, a messy counter, and the smell of something rising in the oven.
             </p>
+            <p className="font-body text-xs opacity-60 mt-3 italic">"Made with butter, patience, and far too many taste tests."</p>
           </div>
           {/* ---- End Brand Column ---- */}
 
@@ -47,7 +48,7 @@ const Footer = () => {
           {/* ---- Newsletter Column ---- */}
           <div>
             <h4 className="font-heading font-semibold mb-3">Newsletter</h4>
-            <p className="font-body text-sm opacity-80 mb-3">Get the latest recipes and special offers!</p>
+            <p className="font-body text-sm opacity-80 mb-3">One short letter a week. Recipes we're loving, tips, and the occasional treat.</p>
             <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="email"
@@ -55,7 +56,7 @@ const Footer = () => {
                 className="flex-1 px-3 py-2 rounded-lg text-foreground bg-cream border-none text-sm font-body focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <button className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-heading font-semibold text-sm hover:opacity-90 transition-opacity whitespace-nowrap">
-                Subscribe
+                Join in
               </button>
             </div>
           </div>
@@ -64,7 +65,7 @@ const Footer = () => {
 
         {/* ---- Copyright ---- */}
         <div className="border-t border-chocolate-light mt-8 pt-6 text-center font-body text-sm opacity-60">
-          &copy; 2026 Whiffle. All rights reserved.
+          &copy; 2026 Whiffle &mdash; baked with love in a slightly-too-small kitchen.
         </div>
         {/* ---- End Copyright ---- */}
       </div>
