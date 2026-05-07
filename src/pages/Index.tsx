@@ -30,21 +30,19 @@ const Index = () => {
       <section className="relative h-[500px] overflow-hidden">
         <img src={heroBg} alt="Fresh baked goods" className="w-full h-full object-cover" width={1920} height={640} />
         <div className="absolute inset-0 bg-gradient-to-r from-chocolate/80 to-chocolate/30 flex items-center">
-          <div className="absolute top-10 right-10 text-6xl animate-float opacity-80 hidden md:block">🥐</div>
-          <div className="absolute bottom-16 right-32 text-5xl opacity-70 hidden md:block" style={{ animation: 'float 5s ease-in-out infinite', animationDelay: '1s' }}>🧁</div>
           <div className="container mx-auto px-4">
-            <span className="inline-block font-body text-cream/80 text-sm tracking-widest uppercase mb-3 reveal">Hi, we're Whiffle 👋</span>
-            <h1 className="font-heading text-4xl md:text-6xl font-bold text-cream mb-4 reveal reveal-delay-1">
+            <span className="inline-block font-body text-cream/80 text-sm tracking-widest uppercase mb-3">Hi, we're Whiffle 👋</span>
+            <h1 className="font-heading text-4xl md:text-6xl font-bold text-cream mb-4">
               Real ovens.<br/>Real people.<br/>Really good bakes.
             </h1>
-            <p className="font-body text-cream/80 text-lg mb-6 max-w-md reveal reveal-delay-2">
+            <p className="font-body text-cream/80 text-lg mb-6 max-w-md">
               We're a small crew of home bakers picking out the tools, ingredients, and recipes we actually use in our own kitchens — so yours feels a little less lonely on a Sunday afternoon.
             </p>
-            <div className="flex gap-3 flex-wrap reveal reveal-delay-3">
-              <Link to="/shop" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:scale-105 active:scale-95 transition-transform shadow-lg">
+            <div className="flex gap-3 flex-wrap">
+              <Link to="/shop" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
                 Browse the shop
               </Link>
-              <Link to="/blog" className="bg-cream text-chocolate px-6 py-3 rounded-xl font-heading font-semibold hover:scale-105 active:scale-95 transition-transform shadow-lg">
+              <Link to="/blog" className="bg-cream text-chocolate px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
                 Read our recipes
               </Link>
             </div>
@@ -60,15 +58,14 @@ const Index = () => {
           <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">What are you baking today?</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-          {categoryIcons.map((cat, i) => (
+          {categoryIcons.map(cat => (
             <Link
               key={cat.name}
               to={`/shop?category=${cat.slug}`}
-              className="bg-card rounded-xl p-5 text-center hover-lift border border-border group reveal"
-              style={{ animationDelay: `${0.05 * i}s` }}
+              className="bg-card rounded-xl p-5 text-center hover:shadow-lg transition-all duration-300 border border-border group hover:-translate-y-1"
             >
-              <div className="bg-soft-pink w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:animate-wiggle">
-                <cat.icon size={22} className="text-primary group-hover:scale-110 transition-transform" />
+              <div className="bg-soft-pink w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2">
+                <cat.icon size={22} className="text-primary" />
               </div>
               <h3 className="font-heading font-semibold text-foreground group-hover:text-primary transition-colors text-sm">{cat.name}</h3>
             </Link>

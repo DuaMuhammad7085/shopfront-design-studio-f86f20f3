@@ -5,13 +5,7 @@
 
 import { useParams, Link } from "react-router-dom";
 import { recipes } from "@/data/recipes";
-import { Clock, Users, ChefHat, ArrowLeft, BookOpen, Sparkles } from "lucide-react";
-
-// ---- Emoji map shared with Blog page ----
-const recipeEmoji: Record<string, string> = {
-  "1": "🧁", "2": "🍫", "3": "🍞", "4": "🍪", "5": "🍌",
-  "6": "🥐", "7": "🥯", "8": "🫐", "9": "🍰", "10": "🍪",
-};
+import { Clock, Users, ChefHat, ArrowLeft, BookOpen } from "lucide-react";
 
 // ---- Recipe Detail Component ----
 const RecipeDetail = () => {
@@ -36,14 +30,13 @@ const RecipeDetail = () => {
     ? "bg-yellow-100 text-yellow-800"
     : "bg-red-100 text-red-800";
   // ---- End Difficulty Color Helper ----
-  const emoji = recipeEmoji[recipe.id] ?? "🍰";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-secondary/20 to-background">
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/30">
       {/* ---- Breadcrumb Navigation ---- */}
       <div className="container mx-auto px-4 py-4">
-        <Link to="/blog" className="font-body text-sm text-primary inline-flex items-center gap-1 group">
-          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> Back to Recipes
+        <Link to="/blog" className="font-body text-sm text-primary hover:underline inline-flex items-center gap-1">
+          <ArrowLeft size={14} /> Back to Recipes
         </Link>
       </div>
       {/* ---- End Breadcrumb ---- */}
@@ -51,9 +44,7 @@ const RecipeDetail = () => {
       <div className="container mx-auto px-4 pb-16">
         <div className="max-w-3xl mx-auto">
           {/* ---- Recipe Header ---- */}
-          <div className="relative bg-gradient-to-br from-card via-card to-soft-pink/20 rounded-2xl border border-border p-8 mb-8 shadow-sm overflow-hidden reveal">
-            <div className="absolute -top-8 -right-8 text-[160px] opacity-15 select-none animate-float">{emoji}</div>
-            <div className="relative">
+          <div className="bg-card rounded-2xl border border-border p-8 mb-8 shadow-sm">
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className={`text-xs font-heading font-semibold px-3 py-1 rounded-full ${difficultyColor}`}>
                 {recipe.difficulty}
@@ -70,20 +61,19 @@ const RecipeDetail = () => {
             </div>
             <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">{recipe.title}</h1>
             <p className="font-body text-muted-foreground text-lg leading-relaxed">{recipe.description}</p>
-            </div>
           </div>
           {/* ---- End Recipe Header ---- */}
 
           {/* ---- Ingredients Section ---- */}
-          <div className="bg-card rounded-2xl border border-border p-8 mb-8 shadow-sm reveal reveal-delay-1">
+          <div className="bg-card rounded-2xl border border-border p-8 mb-8 shadow-sm">
             <h2 className="font-heading text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
               <ChefHat size={22} className="text-primary" /> Ingredients
             </h2>
-            <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
+            <ul className="space-y-2">
               {recipe.ingredients.map((ing, i) => (
-                <li key={i} className="font-body text-foreground flex items-start gap-3 group">
+                <li key={i} className="font-body text-foreground flex items-start gap-3">
                   <span className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                  <span className="group-hover:text-primary transition-colors">{ing}</span>
+                  {ing}
                 </li>
               ))}
             </ul>
@@ -91,12 +81,12 @@ const RecipeDetail = () => {
           {/* ---- End Ingredients Section ---- */}
 
           {/* ---- Steps Section ---- */}
-          <div className="bg-card rounded-2xl border border-border p-8 mb-8 shadow-sm reveal reveal-delay-2">
+          <div className="bg-card rounded-2xl border border-border p-8 mb-8 shadow-sm">
             <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Instructions</h2>
             <ol className="space-y-4">
               {recipe.steps.map((step, i) => (
-                <li key={i} className="flex gap-4 p-3 rounded-xl hover:bg-secondary/50 transition-colors">
-                  <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-heading font-bold text-sm shadow-md">
+                <li key={i} className="flex gap-4">
+                  <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-heading font-bold text-sm">
                     {i + 1}
                   </span>
                   <p className="font-body text-foreground leading-relaxed pt-1">{step}</p>
@@ -107,10 +97,8 @@ const RecipeDetail = () => {
           {/* ---- End Steps Section ---- */}
 
           {/* ---- Tips Section ---- */}
-          <div className="bg-gradient-to-br from-soft-pink/40 to-warm-orange/10 rounded-2xl border border-accent/30 p-8 shadow-sm reveal reveal-delay-3">
-            <h2 className="font-heading text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <Sparkles size={22} className="text-primary animate-wiggle" /> Tips & Tricks
-            </h2>
+          <div className="bg-soft-pink/30 rounded-2xl border border-accent/30 p-8 shadow-sm">
+            <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Tips & Tricks</h2>
             <ul className="space-y-3">
               {recipe.tips.map((tip, i) => (
                 <li key={i} className="font-body text-foreground flex items-start gap-3">

@@ -102,44 +102,6 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
-  /* ---- Hover & Interaction Helpers ---- */
-  .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
-  }
-  .hover-scale {
-    @apply transition-transform duration-300 hover:scale-105;
-  }
-  .story-link {
-    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
-  }
-
-  /* ---- Reveal-on-load helpers (staggered) ---- */
-  .reveal { opacity: 0; animation: fade-in-up 0.7s ease-out forwards; }
-  .reveal-delay-1 { animation-delay: 0.1s; }
-  .reveal-delay-2 { animation-delay: 0.2s; }
-  .reveal-delay-3 { animation-delay: 0.3s; }
-  .reveal-delay-4 { animation-delay: 0.4s; }
-  .reveal-delay-5 { animation-delay: 0.5s; }
-
-  /* ---- Shimmer Gradient Text ---- */
-  .text-shimmer {
-    background: linear-gradient(90deg, hsl(var(--cream)) 0%, hsl(var(--soft-pink)) 50%, hsl(var(--cream)) 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 3s linear infinite;
-  }
-
-  @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
 }
 /* ---- End Utility Classes ---- */
 /* ==================== END GLOBAL STYLES ==================== */

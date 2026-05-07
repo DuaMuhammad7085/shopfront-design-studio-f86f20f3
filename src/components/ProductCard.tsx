@@ -28,24 +28,23 @@ const ProductCard = ({ product }: ProductCardProps) => {
   // ---- End Add to Cart Handler ----
 
   return (
-    <Link to={`/product/${product.id}`} className="group block">
-      <div className="bg-card rounded-xl overflow-hidden border border-border hover-lift">
+    <Link to={`/product/${product.id}`} className="group">
+      <div className="bg-card rounded-xl overflow-hidden border border-border hover:shadow-lg transition-all duration-300">
         {/* ---- Product Image ---- */}
         <div className="relative aspect-square overflow-hidden bg-secondary/30">
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
             width={512}
             height={512}
           />
           {product.originalPrice && (
-            <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded-md font-heading shadow-md group-hover:animate-wiggle">
+            <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded-md font-heading">
               Sale
             </span>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-chocolate/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
         {/* ---- End Product Image ---- */}
 
@@ -62,7 +61,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           {/* ---- Add to Cart Button ---- */}
           <button
             onClick={handleAddToCart}
-            className="bg-primary text-primary-foreground px-4 py-1.5 rounded-lg text-xs font-heading font-semibold hover:opacity-90 hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-1.5 shadow-sm"
+            className="bg-primary text-primary-foreground px-4 py-1.5 rounded-lg text-xs font-heading font-semibold hover:opacity-90 transition-opacity inline-flex items-center gap-1.5"
           >
             <ShoppingCart size={12} />
             Add to Cart
