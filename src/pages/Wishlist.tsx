@@ -12,9 +12,9 @@ const Wishlist = () => {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
         <Heart size={64} className="mx-auto text-muted-foreground mb-4" />
-        <h1 className="font-heading text-2xl font-bold text-foreground mb-2">Your wishlist is feeling shy</h1>
-        <p className="font-body text-muted-foreground mb-6 max-w-sm mx-auto">Tap the little heart on anything you love and we'll keep it tucked away here for next payday.</p>
-        <Link to="/shop" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">Find something to love</Link>
+        <h1 className="font-heading text-2xl font-bold text-foreground mb-2">Your Wishlist is Empty</h1>
+        <p className="font-body text-muted-foreground mb-6">Save items you love for later!</p>
+        <Link to="/shop" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">Browse Products</Link>
       </div>
     );
   }

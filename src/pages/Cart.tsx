@@ -15,10 +15,10 @@ const Cart = () => {
     return (
       <div className="container mx-auto px-4 py-16 text-center min-h-[60vh] flex flex-col items-center justify-center">
         <ShoppingBag size={64} className="mx-auto text-muted-foreground mb-4" />
-        <h1 className="font-heading text-2xl font-bold text-foreground mb-2">Nothing in here yet</h1>
-        <p className="font-body text-muted-foreground mb-6 max-w-sm">No worries — every great bake starts with one good tin. Have a wander and see what catches your eye.</p>
+        <h1 className="font-heading text-2xl font-bold text-foreground mb-2">Your Cart is Empty</h1>
+        <p className="font-body text-muted-foreground mb-6">Looks like you haven't added anything yet!</p>
         <Link to="/shop" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
-          Take me to the shop
+          Continue Shopping
         </Link>
       </div>
     );

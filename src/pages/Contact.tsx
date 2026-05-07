@@ -26,8 +26,8 @@ const Contact = () => {
         <img src={featuredDealBg} alt="Contact Whiffle" className="w-full h-full object-cover" width={1920} height={512} />
         <div className="absolute inset-0 bg-chocolate/70 flex items-center justify-center text-center">
           <div>
-            <h1 className="font-heading text-4xl font-bold text-cream italic mb-2">Say hello</h1>
-            <p className="font-body text-cream/80">A real person reads every message. Promise.</p>
+            <h1 className="font-heading text-4xl font-bold text-cream italic mb-2">Get in Touch</h1>
+            <p className="font-body text-cream/80">We'd love to hear from you!</p>
           </div>
         </div>
       </section>
@@ -60,8 +60,7 @@ const Contact = () => {
           {/* ---- Contact Form ---- */}
           <div className="lg:col-span-2">
             <div className="bg-card rounded-xl border border-border p-8 shadow-sm">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Drop us a line</h2>
-              <p className="font-body text-muted-foreground mb-6 text-sm">Whether it's a tricky question, a recipe disaster, or just to share what you baked this weekend — we'd genuinely love to hear it.</p>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Send Us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>

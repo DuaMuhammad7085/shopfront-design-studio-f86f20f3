@@ -16,8 +16,8 @@ const About = () => (
       <img src={heroBg} alt="About Whiffle" className="w-full h-full object-cover" width={1920} height={512} />
       <div className="absolute inset-0 bg-chocolate/70 flex items-center justify-center text-center">
         <div>
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-cream italic mb-2">The people behind the flour</h1>
-          <p className="font-body text-cream/80 text-lg max-w-xl mx-auto">A small shop, a few well-loved aprons, and a soft spot for anyone learning to bake.</p>
+          <h1 className="font-heading text-4xl md:text-5xl font-bold text-cream italic mb-2">About Whiffle</h1>
+          <p className="font-body text-cream/80 text-lg max-w-xl mx-auto">Making baking joyful, simple, and rewarding for everyone.</p>
         </div>
       </div>
     </section>
@@ -27,14 +27,12 @@ const About = () => (
     <section className="container mx-auto px-4 py-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
-          <p className="font-body text-sm text-primary uppercase tracking-widest mb-2">Our story</p>
-          <h2 className="font-heading text-3xl font-bold text-foreground mb-4">It started with a sad birthday cake.</h2>
+          <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Our Story</h2>
           <div className="space-y-4 font-body text-muted-foreground leading-relaxed">
-            <p>One of us — okay, it was Maya — tried to make her dad a chocolate cake for his 60th. She had a wobbly tin, expired baking powder, and a recipe written by someone who clearly hated beginners. The cake came out flat. Her dad ate it anyway. He's that kind of guy.</p>
-            <p>That night, we started talking about how strange it is that learning to bake feels harder than it should. Stores throw 40 different whisks at you. Recipes assume you already know what "soft peaks" look like. Nobody tells you which loaf pan to actually buy.</p>
-            <p>So in 2024 we started Whiffle: a small online shop run by home bakers, for home bakers. We pick everything ourselves, write the recipes the way we'd explain them to a friend, and answer emails from our own kitchens (sometimes with one hand, while a dough proves).</p>
-            <p>We're not a giant warehouse. We're four people, a very loud KitchenAid, and a Whippet called Biscuit who supervises packing day. If you've found us, thank you — we're really glad you're here.</p>
-            <p className="italic text-foreground">— Maya, Sam, Iris & Theo</p>
+            <p>Whiffle was born from a simple idea: baking should be accessible to everyone. We noticed beginners often felt overwhelmed by the sheer number of tools and ingredients available, with no clear guidance on what to buy or how to use them.</p>
+            <p>Founded in 2024, we set out to build a platform that not only sells quality bakeware and ingredients, but also guides you through your baking journey. From your first batch of cookies to elaborate tiered wedding cakes, Whiffle is with you every step of the way.</p>
+            <p>Our team of passionate bakers and food enthusiasts hand-pick every product in our catalog, ensuring only the best quality reaches your kitchen. We believe the right tools can transform anyone into a confident baker.</p>
+            <p>Today, Whiffle serves thousands of happy bakers across the country, offering over 100 curated products, guided recipes, and an ever-growing community of baking enthusiasts who share our passion for flour-dusted countertops and the smell of fresh-baked bread.</p>
           </div>
         </div>
         <div className="rounded-xl overflow-hidden shadow-lg">
@@ -75,18 +73,15 @@ const About = () => (
 
     {/* ---- Values Section ---- */}
     <section className="container mx-auto px-4 py-16">
-      <div className="text-center mb-10">
-        <p className="font-body text-sm text-primary uppercase tracking-widest mb-1">The non-negotiables</p>
-        <h2 className="font-heading text-3xl font-bold text-foreground">What we care about, in plain English</h2>
-      </div>
+      <h2 className="font-heading text-3xl font-bold text-foreground mb-8 text-center">What We Stand For</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
-          { icon: Shield, title: "Stuff we'd actually buy", desc: "If we wouldn't put it in our own drawer, it doesn't make the shop. Simple as that." },
-          { icon: Users, title: "Real conversations", desc: "Our customers tell us what's missing, what's confusing, what they wish existed. We listen — and usually agree." },
-          { icon: Leaf, title: "Lighter on the planet", desc: "Plastic-free packaging where we can, recycled cardboard everywhere else, and silicone over single-use whenever possible." },
-          { icon: BookOpen, title: "Recipes that respect you", desc: "Written like a friend would explain it — with the bits you actually need to know, and none of the life story before." },
-          { icon: Heart, title: "A soft spot for beginners", desc: "Everyone burns their first batch. We try to make the second one a little easier." },
-          { icon: Award, title: "Tiny details", desc: "Hand-written thank-you notes in every box. A little extra packet of vanilla sugar if it's your first order. The small things." },
+          { icon: Shield, title: "Quality First", desc: "Every product is tested and curated by our team of experienced bakers. We only sell items we would use in our own kitchens." },
+          { icon: Users, title: "Community Driven", desc: "We listen to our community of bakers to improve our products and services. Your feedback shapes what we offer." },
+          { icon: Leaf, title: "Sustainability", desc: "We prioritize eco-friendly products and packaging. From silicone mats to recyclable shipping, we care about our planet." },
+          { icon: BookOpen, title: "Education", desc: "Through our blog, recipes, and product guides, we help you learn and grow as a baker at every skill level." },
+          { icon: Heart, title: "Passion", desc: "Baking is our passion and we pour that love into everything we do, from product curation to customer service." },
+          { icon: Award, title: "Excellence", desc: "We hold ourselves to the highest standards. Fast shipping, responsive support, and products that exceed expectations." },
         ].map(item => (
           <div key={item.title} className="bg-card rounded-xl p-6 border border-border text-center hover:shadow-md transition-shadow">
             <div className="bg-soft-pink w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -126,16 +121,16 @@ const About = () => (
     {/* ---- CTA Section ---- */}
     <section className="bg-gradient-to-r from-secondary to-soft-pink/20 py-16">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="font-heading text-3xl font-bold text-foreground mb-4 italic">Come bake with us</h2>
+        <h2 className="font-heading text-3xl font-bold text-foreground mb-4 italic">Ready to Start Baking?</h2>
         <p className="font-body text-muted-foreground mb-6 max-w-lg mx-auto">
-          Whether it's your very first loaf or your hundredth, we'd love to be the shop you tell your friends about.
+          Browse our curated collection of bakeware, ingredients, and tools. Everything you need for your next baking adventure!
         </p>
         <div className="flex gap-4 justify-center flex-col sm:flex-row">
           <Link to="/shop" className="bg-primary text-primary-foreground px-8 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
-            Browse the shop
+            Shop Now
           </Link>
           <Link to="/blog" className="bg-card text-foreground border border-border px-8 py-3 rounded-xl font-heading font-semibold hover:shadow-md transition-shadow">
-            Read the recipes
+            Browse Recipes
           </Link>
         </div>
       </div>

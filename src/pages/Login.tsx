@@ -31,11 +31,10 @@ const Login = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-chocolate/80 to-chocolate/50 flex items-center justify-center">
           <div className="text-center px-12">
             <WhiffleLogo className="h-16 w-auto text-cream mx-auto mb-6" />
-            <h2 className="font-heading text-3xl font-bold text-cream mb-4 italic">Pull up a stool</h2>
+            <h2 className="font-heading text-3xl font-bold text-cream mb-4 italic">Welcome to Whiffle</h2>
             <p className="font-body text-cream/80 text-lg max-w-sm mx-auto">
-              The kettle's on. Sign in to save your favourite recipes, track your orders, and pick up your wishlist where you left it.
+              Your guided baking companion. Sign in to access your personalized baking journey.
             </p>
-            <p className="font-body text-cream/60 text-sm italic mt-6">"It's basically our front door — only flourier."</p>
           </div>
         </div>
       </div>
@@ -50,10 +49,10 @@ const Login = () => {
           </div>
 
           <h1 className="font-heading text-3xl font-bold text-foreground text-center mb-2">
-            {isSignup ? "Nice to meet you" : "Welcome back, friend"}
+            {isSignup ? "Create Account" : "Welcome Back"}
           </h1>
           <p className="font-body text-muted-foreground text-center mb-8">
-            {isSignup ? "Make a quick account and we'll keep your recipes, orders and wishlist all in one place." : "Hope your last bake turned out well. Let's get you back in."}
+            {isSignup ? "Join Whiffle and start your baking journey!" : "Sign in to your Whiffle account"}
           </p>
 
           {/* ---- Login/Signup Form ---- */}
