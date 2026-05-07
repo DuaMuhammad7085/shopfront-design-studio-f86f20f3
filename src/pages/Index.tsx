@@ -31,18 +31,19 @@ const Index = () => {
         <img src={heroBg} alt="Fresh baked goods" className="w-full h-full object-cover" width={1920} height={640} />
         <div className="absolute inset-0 bg-gradient-to-r from-chocolate/80 to-chocolate/30 flex items-center">
           <div className="container mx-auto px-4">
+            <span className="inline-block font-body text-cream/80 text-sm tracking-widest uppercase mb-3">Hi, we're Whiffle 👋</span>
             <h1 className="font-heading text-4xl md:text-6xl font-bold text-cream mb-4">
-              Bake Smarter<br />with Whiffle
+              Real ovens.<br/>Real people.<br/>Really good bakes.
             </h1>
             <p className="font-body text-cream/80 text-lg mb-6 max-w-md">
-              Your guided baking companion. Quality products, easy recipes, and everything you need for the perfect bake.
+              We're a small crew of home bakers picking out the tools, ingredients, and recipes we actually use in our own kitchens — so yours feels a little less lonely on a Sunday afternoon.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-wrap">
               <Link to="/shop" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
-                Shop Now
+                Browse the shop
               </Link>
               <Link to="/blog" className="bg-cream text-chocolate px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
-                Explore Recipes
+                Read our recipes
               </Link>
             </div>
           </div>
@@ -52,7 +53,10 @@ const Index = () => {
 
       {/* ---- Shop by Category (Compact) ---- */}
       <section className="container mx-auto px-4 py-12">
-        <h2 className="font-heading text-2xl font-bold text-foreground mb-6 text-center">Shop by Category</h2>
+        <div className="text-center mb-8">
+          <p className="font-body text-sm text-primary uppercase tracking-widest mb-1">Pick your aisle</p>
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">What are you baking today?</h2>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
           {categoryIcons.map(cat => (
             <Link
@@ -105,12 +109,15 @@ const Index = () => {
 
       {/* ---- Why Choose Us ---- */}
       <section className="container mx-auto px-4 py-16">
-        <h2 className="font-heading text-3xl font-bold text-foreground mb-8 text-center">Why Choose Whiffle?</h2>
+          <div className="text-center mb-10">
+            <p className="font-body text-sm text-primary uppercase tracking-widest mb-1">Why bakers stick around</p>
+            <h2 className="font-heading text-3xl font-bold text-foreground">A little more thoughtful than your average shop</h2>
+          </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { icon: BookOpen, title: "Beginner Friendly", desc: "Guided shopping with difficulty levels and usage tips for every product." },
-            { icon: Shield, title: "Quality Guaranteed", desc: "We curate only the best bakeware and ingredients from trusted brands." },
-            { icon: Truck, title: "Fast Delivery", desc: "Free shipping on orders over $35. Get baking within days, not weeks." },
+            { icon: BookOpen, title: "We've actually baked with it", desc: "Every product gets tested in our home kitchens — flour, frustration, and all — before it lands on the site." },
+            { icon: Shield, title: "No mystery picks", desc: "We tell you what's worth it, what's overrated, and which loaf pan one of us has owned for nine years." },
+            { icon: Truck, title: "Quick to your door", desc: "Free shipping over $35. Most orders ship the next morning so you're not waiting on Saturday's plans." },
           ].map(item => (
             <div key={item.title} className="bg-card rounded-xl p-8 text-center border border-border hover:shadow-md transition-shadow">
               <div className="bg-soft-pink w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -129,10 +136,11 @@ const Index = () => {
         <img src={featuredDealBg} alt="Featured Deal" className="w-full h-full object-cover" loading="lazy" width={1920} height={512} />
         <div className="absolute inset-0 bg-chocolate/60 flex items-center justify-center text-center">
           <div>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-cream italic mb-2">Featured Deal</h2>
-            <p className="font-body text-cream/90 text-lg mb-6">Limited Time Offer: 25% Off Bakeware Sets!</p>
+            <p className="font-body text-cream/80 text-sm uppercase tracking-widest mb-2">This week only</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-cream italic mb-2">Treat yourself to nicer bakeware</h2>
+            <p className="font-body text-cream/90 text-lg mb-6">25% off our favourite cake pans, tins and trays.</p>
             <Link to="/shop" className="bg-primary text-primary-foreground px-8 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity">
-              Shop Now
+              See the deal
             </Link>
           </div>
         </div>
@@ -146,8 +154,8 @@ const Index = () => {
             <Mail size={16} className="text-cream" />
             <span className="font-heading text-sm font-semibold text-cream">Stay Updated</span>
           </div>
-          <h2 className="font-heading text-3xl font-bold text-cream mb-2 italic">Join Our Mailing List</h2>
-          <p className="font-body text-cream/70 mb-6">Get the latest recipes and special offers!</p>
+          <h2 className="font-heading text-3xl font-bold text-cream mb-2 italic">Sunday letters from our kitchen</h2>
+          <p className="font-body text-cream/70 mb-6">One short email a week — a recipe we're loving, a tip we wish we'd known sooner, and the occasional discount. No spam, ever.</p>
           <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-3">
             <input
               type="email"
@@ -155,7 +163,7 @@ const Index = () => {
               className="flex-1 px-4 py-3 rounded-xl border border-cream/20 bg-cream/10 text-cream placeholder:text-cream/50 font-body focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <button className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-heading font-semibold hover:opacity-90 transition-opacity whitespace-nowrap">
-              Subscribe
+              Sign me up
             </button>
           </div>
         </div>
